@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+  <title>Home</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+  <!--Navbar information-->
+  <nav id='menu'>
+    <div class="header">KICKX</div> <!-- Header added here -->
+    <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
+    <ul>
+      <li><a href='index.html'>HOME</a></li>
+      <li><a class='dropdown-arrow' href='index.html'>PRODUCTS</a>
+        <ul class='sub-menus'>
+          <li><a href='index.html'>Products 1</a></li>
+          <li><a href='index.html'>Products 2</a></li>
+          <li><a href='index.html'>Products 3</a></li>
+          <li><a href='index.html'>Products 4</a></li>
+        </ul>
+      </li>
+      <li><a href='index.html'>ABOUT</a></li>
+    </ul>
+    <!-- Search bar added here -->
+    <form class="example" action="index.html">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+    <form class="example" action="index.html">
+      <button type="submit"><i class="fa fa-user" style="font-size: 20px;"></i></button>
+    </form>
+    <form class="example" action="index.html">
+      <button type="submit"><i class="fa fa-shopping-cart" style="font-size:20px"></i></button>
+    </form>
+  </nav>
+
+
+  <!-- Slideshow container -->
+  <div class="slideshow-container">
+
+    <!-- Full-width images with number and caption text -->
+    <div class="mySlides fade1">
+      <img src="https://images.lifestyleasia.com/wp-content/uploads/sites/5/2023/02/08134137/jordan-shoes-1600x900.jpg"
+        style="width:100%" alt="Picture of shoes">
+      <div class="text">KICKX</div>
+    </div>
+
+    <div class="mySlides fade2">
+      <img
+        src="https://media-cldnry.s-nbcnews.com/image/upload/t_social_share_1200x630_center,f_auto,q_auto:best/newscms/2023_17/1989442/230428-nike-vl-2x1.jpg"
+        style="width:100%" alt="Picture of shoes">
+      <div class="text">Bring Power to your Steps</div>
+    </div>
+
+    <div class="mySlides fade3">
+      <img
+        src="https://brand.assets.adidas.com/image/upload/f_auto,q_auto,fl_lossy/if_w_gt_1920,w_1920/enUS/Images/originals-ss24-franchise_toolkit-purple-samba-mh-d_tcm221-1086918.jpg"
+        style="width:100%" alt="Picture of shoes">
+      <div class="text">Walk Free</div>
+    </div>
+
+    <!-- Next and previous buttons -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+  <br>
+
+  <!-- The dots/circles -->
+  <div style="text-align:center">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+  </div>
+
+  <!--Bit of javascript to get the slideshow functioning and moving-->
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) { slideIndex = 1 }
+      if (n < 1) { slideIndex = slides.length }
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+    }
+  </script>
+
+  <br>
+  <div class="black-box">
+    <div class="text-content"> <!-- Container for text to control layout -->
+      <h1>Feel The Change</h1> <!-- Corrected closing tag -->
+      <p>Experience the change in style brought forth by your new
+        KICKX</p>
+    </div>
+    <div class="text-content">
+      <h1>Only the best shoes</h1> <!-- Corrected closing tag -->
+      <p>Search for and buy shoes from your favorite brands!</p>
+    </div>
+    <div class="text-content">
+      <h1>KICKX Guarantee</h1>
+      <p>We guarantee nothing but legitimate shoes!</p>
+    </div>
+  </div>
+
+  <br>
+  <div class="copyright-box">
+    <footer class="page-footer">
+      <p>&copy; 2024 KICKX - All rights reserved.</p>
+    </footer>
+  </div>
+</body>
+</html>
