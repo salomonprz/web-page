@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+
+<head>
   <title>Home</title>
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
+  <div class="content-wrap">
   <!--Navbar information-->
   <nav id='menu'>
     <div class="header">KICKX</div> <!-- Header added here -->
     <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
     <ul>
       <li><a href='index.html'>HOME</a></li>
-      <li><a class='dropdown-arrow' href='index.html'>PRODUCTS</a>
+      <li><a class='dropdown-arrow' href='products.html'>PRODUCTS</a>
         <ul class='sub-menus'>
-          <li><a href='index.html'>Products 1</a></li>
-          <li><a href='index.html'>Products 2</a></li>
-          <li><a href='index.html'>Products 3</a></li>
-          <li><a href='index.html'>Products 4</a></li>
+          <li><a href='products.html'>Products 1</a></li>
+          <li><a href='products.html'>Products 2</a></li>
+          <li><a href='products.html'>Products 3</a></li>
+          <li><a href='products.html'>Products 4</a></li>
         </ul>
       </li>
       <li><a href='index.html'>ABOUT</a></li>
@@ -27,10 +29,12 @@
     <form class="example" action="index.html">
       <button type="submit"><i class="fa fa-search"></i></button>
     </form>
+    <!-- User Icon added here -->
     <form class="example" action="index.html">
       <button type="submit"><i class="fa fa-user" style="font-size: 20px;"></i></button>
     </form>
-    <form class="example" action="index.html">
+    <!-- Cart icon added here -->
+    <form class="example" action="cart.html">
       <button type="submit"><i class="fa fa-shopping-cart" style="font-size:20px"></i></button>
     </form>
   </nav>
@@ -120,11 +124,12 @@
     </div>
   </div>
 
-  <br>
-  <div class="copyright-box">
+  <div class="footer-box">
     <footer class="page-footer">
-      <p>&copy; 2024 KICKX - All rights reserved.</p>
+        <p>&copy; 2024 KICKX - All rights reserved.</p>
     </footer>
-  </div>
+</div>
+</div>
 </body>
+
 </html>

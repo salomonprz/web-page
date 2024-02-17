@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div class="content-wrap">
+    <!--Navbar information-->
+    <nav id='menu'>
+        <div class="header">KICKX</div> <!-- Header added here -->
+        <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
+        <ul>
+            <li><a href='index.html'>HOME</a></li>
+            <li><a class='dropdown-arrow' href='products.html'>PRODUCTS</a>
+                <ul class='sub-menus'>
+                    <li><a href='products.html'>Products 1</a></li>
+                    <li><a href='products.html'>Products 2</a></li>
+                    <li><a href='products.html'>Products 3</a></li>
+                    <li><a href='products.html'>Products 4</a></li>
+                </ul>
+            </li>
+            <li><a href='index.html'>ABOUT</a></li>
+        </ul>
+        <!-- Search bar added here -->
+        <form class="example" action="index.html">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <!-- User Icon added here -->
+        <form class="example" action="index.html">
+            <button type="submit"><i class="fa fa-user" style="font-size: 20px;"></i></button>
+        </form>
+        <!-- Cart icon added here -->
+        <form class="example" action="cart.html">
+            <button type="submit"><i class="fa fa-shopping-cart" style="font-size:20px"></i></button>
+        </form>
+    </nav>
+
+    <div class="cart-container">
+        <h2>Shopping Cart</h2>
+        <div class="cart-item">
+            <img src="https://images.stockx.com/360/Air-Jordan-1-Retro-High-OG-Chicago-Reimagined-GS/Images/Air-Jordan-1-Retro-High-OG-Chicago-Reimagined-GS/Lv2/img01.jpg?fm=webp&auto=compress&w=480&dpr=2&updated_at=1669224050&h=320&q=60"
+                alt="Item 1">
+            <p>Item Name 1</p>
+            <p>$299.99</p>
+            <input type="number" value="1">
+            <button>Update</button>
+            <button>Remove</button>
+            <p>Item Total: $299.99</p>
+        </div>
+        <div class="cart-item">
+            <img src="https://hypmiami.com/cdn/shop/products/Adidas-Yeezy-Boost-350-V2-Core-Black-Red-2017-Product.webp?v=1667334935&width=2048"
+                alt="Item 2">
+            <p>Item Name 2</p>
+            <p>$499.99</p>
+            <input type="number" value="2">
+            <button>Update</button>
+            <button>Remove</button>
+            <p>Item Total: $499.99</p>
+        </div>
+        <div class="cart-total">
+            <p>Subtotal: $799.98</p>
+            <p>Tax (6.75%): $54</p>
+            <p>Delivery Fee: $15</p>
+            <p>Total: $868.98</p>
+        </div>
+        <button class="checkout-btn">Checkout</button>
+    </div>
+
+    <br>
+    <div class="footer-box">
+        <footer class="page-footer">
+            <p>&copy; 2024 KICKX - All rights reserved.</p>
+        </footer>
+    </div>
+</div>
+</body>
+
+</html>
