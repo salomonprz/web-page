@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Product Edit Page</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="admin-navigation">
+        <!--Bar buttons-->
+        <a href="bulk-upload.html">Bulk Upload</a>
+        <a href="product-edit.html">Product Editing</a>
+        <a href="index.html">Sign Out</a>
+    </div>
+
+    <div class="container">
+        <div class="search">
+            <!--Bar to search for products-->
+            <label for="search">Search Products:</label>
+            <input type="text" id="search" name="search" placeholder="Search by name or category...">
+        </div>
+
+        <select>
+            <!--Drop Down menu to show products listed-->
+            <option>Select a Product to Edit</option>
+            <option value="1">Product 1</option>
+            <option value="2">Product 2</option>
+        </select>
+
+        <form>
+            <div class="form-group">
+                <!--ID of Product bar-->
+                <label for="product-id">Product ID</label>
+                <input type="text" id="product-id" name="product-id" disabled>
+            </div>
+            <div class="form-group">
+                <!--Name of Product bar-->
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div class="form-group">
+                <!--Description of Product bar-->
+                <label for="description">Description</label>
+                <input type="text" id="description" name="description">
+            </div>
+            <div class="form-group">
+                <!--Category of Product bar-->
+                <label for="category">Category</label>
+                <input type="text" id="category" name="category">
+            </div>
+            <div class="form-group">
+                <!--Image path for the image of the product-->
+                <label for="image-path">Image Path</label>
+                <input type="text" id="image-path" name="image-path">
+            </div>
+            <div class="form-group">
+                <!--What the price would be for the product-->
+                <label for="price">Price</label>
+                <input type="text" id="price" name="price">
+            </div>
+            <input type="submit" value="Save Changes">
+        </form>
+
+        <button>Add New Product</button>
+    </div>
+
+</body>
+
+</html>

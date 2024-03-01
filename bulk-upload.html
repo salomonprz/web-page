@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bulk Upload</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <div class="admin-navigation">
+        <!--Bar Buttons-->
+        <a href="bulk-upload.html">Bulk Upload</a>
+        <a href="product-edit.html">Product Editing</a>
+        <a href="index.html">Sign Out</a>
+    </div>
+
+    <div class="container">
+        <h2>Bulk Upload Products</h2>
+        <p>Select a file with your product data in JSON, CSV, or text format and upload it into the database.</p>
+
+        <!--File upload section-->
+        <form action="/path-to-upload-endpoint" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file-upload">File to upload:</label>
+                <input type="file" id="file-upload" name="file-upload" accept=".json,.csv,text/plain">
+            </div>
+            <input type="submit" value="Upload File">
+        </form>
+
+        <div class="instructions">
+            <!--File format section-->
+            <h3>File Format and Instructions</h3>
+            <p>Ensure your file is in one of the following formats: JSON, CSV, or plain text.</p>
+            <p><strong>Example JSON format:</strong></p>
+            <!--Example section-->
+            <pre>
+[
+    {
+        "productId": "123",
+        "name": "Product Name 1",
+        "description": "Description here",
+        "categoryId": "Category1",
+        "imagePath": "/images/product1.png",
+        "price": 100
+    },
+    {
+        "productId": "124",
+        "name": "Product Name 2",
+        "description": "Description here",
+        "categoryId": "Category2",
+        "imagePath": "/images/product2.png",
+        "price": 150
+    }
+]
+        </pre>
+            <p>For CSV and text files, ensure each line represents a single product with comma-separated values.</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

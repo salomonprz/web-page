@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.admin-navigation {
+    background-color: #f4f4f4;
+    padding: 10px;
+    text-align: right;
+}
+.admin-navigation a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #333;
+}
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 4px 0 8px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+.search {
+    margin-bottom: 20px;
+}
