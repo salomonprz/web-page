@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Products</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    
+    <div class="content-wrap">
+        <!--Navbar information-->
+        <nav id='menu'>
+            <div class="header">KICKX</div> <!-- Header added here -->
+            <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
+            <ul>
+              <li><a href='index.html'>HOME</a></li>
+              <li><a class='dropdown-arrow' href='products.html'>PRODUCTS</a>
+                <ul class='sub-menus'>
+                  <li><a href='products.html'>Products 1</a></li>
+                  <li><a href='products.html'>Products 2</a></li>
+                  <li><a href='products.html'>Products 3</a></li>
+                  <li><a href='products.html'>Products 4</a></li>
+                </ul>
+              </li>
+              <li><a href='index.html'>ABOUT</a></li>
+            </ul>
+            <!-- Search bar added here -->
+            <form class="example" action="index.html">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+            <!-- User Icon added here -->
+            <form class="example" action="index.html">
+              <button type="submit"><i class="fa fa-user" style="font-size: 20px;"></i></button>
+            </form>
+            <!-- Cart icon added here -->
+            <form class="example" action="cart.html">
+              <button type="submit"><i class="fa fa-shopping-cart" style="font-size:20px"></i></button>
+            </form>
+          </nav>
+
+        <!-- Product Heading -->
+        <div class="products-header">
+            <h1 class="products-heading">Products</h1>
+            <div class="heading-line"></div> <!-- Decorative line -->
+        </div>
+
+        <!-- Product List -->
+        <section class="product-list" id="productList">
+            <!-- Product details will be dynamically added here -->
+        </section>
+
+        <!-- Footer -->
+        <!-- Your footer code here -->
+    </div>
+
+    <!-- JavaScript to fetch products and populate the product list -->
+    <script>
+        // Fetch all products from the server
+        fetch('http://localhost:3000/api/products')
+            .then(response => response.json())
+            .then(products => {
+                const productList = document.getElementById('productList');
+                products.forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.classList.add('product-item');
+                    productItem.innerHTML = `
+                        <h3>${product.name}</h3>
+                        <p>${product.description}</p>
+                        <p>$${product.price}</p>
+                        <!-- Add more details or buttons as needed -->
+                    `;
+                    productList.appendChild(productItem);
+                });
+            })
+            .catch(error => console.error('Error fetching products:', error));
+    </script>
+</body>
+
+</html>
