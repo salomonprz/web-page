@@ -1,0 +1,5 @@
+1714066558557,new test,1,1,1,
+1714067834836,Another product,a desc,none really,10
+1714068833503,Salomon2,a,a,1,
+1714070235794,test3,none,1,1
+1714070938096,Image test,Test for Image,None,1,https://i5.walmartimages.com/seo/Eashery-Shoes-for-Men-Sport-Workout-Sneakers-Comfortable-Men-Shoes-Black-10_aa500205-ba8a-4b5b-83b3-6fbeef678ddc.480f707bdd92c6873286f95a0e4d324a.jpeg

@@ -1,71 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>Product Edit Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
     <link rel="stylesheet" href="admin.css">
 </head>
-
 <body>
-
-    <div class="admin-navigation">
-        <!--Bar buttons-->
-        <a href="bulk-upload.html">Bulk Upload</a>
-        <a href="product-edit.html">Product Editing</a>
-        <a href="index.html">Sign Out</a>
+    <h1>Product Editor</h1>
+    <div>
+        <input type="text" id="productId" placeholder="Enter Product ID to Edit">
+        <button type="button" onclick="fetchProductDetails()">Fetch Product Details</button>
     </div>
+    <form id="addProductForm">
+        <input type="text" id="name" name="name" placeholder="Product Name" required>
+        <input type="text" id="description" name="description" placeholder="Product Description" required>
+        <input type="text" id="category" name="category" placeholder="Category" required>
+        <input type="number" id="price" name="price" placeholder="Price" required>
+        <input type="text" id="imageUrl" name="imageUrl" placeholder="Image URL">
+        <button type="button" onclick="addOrUpdateProduct()">Save Product</button>
+    </form>
 
-    <div class="container">
-        <div class="search">
-            <!--Bar to search for products-->
-            <label for="search">Search Products:</label>
-            <input type="text" id="search" name="search" placeholder="Search by name or category...">
-        </div>
+    <script>
+        function fetchProductDetails() {
+            const productId = document.getElementById('productId').value;
+            fetch(`/api/products/${productId}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('name').value = data.name;
+                document.getElementById('description').value = data.description;
+                document.getElementById('category').value = data.category;
+                document.getElementById('price').value = data.price;
+                document.getElementById('imageUrl').value = data.imageUrl || ''; // Assume image URL may be optional
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to fetch product details.');
+            });
+        }
 
-        <select>
-            <!--Drop Down menu to show products listed-->
-            <option>Select a Product to Edit</option>
-            <option value="1">Product 1</option>
-            <option value="2">Product 2</option>
-        </select>
+        function addOrUpdateProduct() {
+            const productId = document.getElementById('productId').value;
+            const productData = {
+                name: document.getElementById('name').value,
+                description: document.getElementById('description').value,
+                category: document.getElementById('category').value,
+                price: document.getElementById('price').value,
+                imageUrl: document.getElementById('imageUrl').value
+            };
 
-        <form>
-            <div class="form-group">
-                <!--ID of Product bar-->
-                <label for="product-id">Product ID</label>
-                <input type="text" id="product-id" name="product-id" disabled>
-            </div>
-            <div class="form-group">
-                <!--Name of Product bar-->
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name">
-            </div>
-            <div class="form-group">
-                <!--Description of Product bar-->
-                <label for="description">Description</label>
-                <input type="text" id="description" name="description">
-            </div>
-            <div class="form-group">
-                <!--Category of Product bar-->
-                <label for="category">Category</label>
-                <input type="text" id="category" name="category">
-            </div>
-            <div class="form-group">
-                <!--Image path for the image of the product-->
-                <label for="image-path">Image Path</label>
-                <input type="text" id="image-path" name="image-path">
-            </div>
-            <div class="form-group">
-                <!--What the price would be for the product-->
-                <label for="price">Price</label>
-                <input type="text" id="price" name="price">
-            </div>
-            <input type="submit" value="Save Changes">
-        </form>
+            const method = productId ? 'PUT' : 'POST';
+            const url = '/api/products' + (productId ? `/${productId}` : '');
 
-        <button>Add New Product</button>
-    </div>
-
+            fetch(url, {
+                method: method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(productData)
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert('Product saved successfully!');
+                document.getElementById('addProductForm').reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
 </body>
-
 </html>
