@@ -11,38 +11,34 @@
 
 <body>
   <nav id='menu'>
-    <div class="header">KICKX</div> <!-- Header added here -->
+    <div class="header">KICKX</div>
     <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
     <ul>
-      <li><a href='index.html'>HOME</a></li>
-      <li><a class='dropdown-arrow' href='products.html'>PRODUCTS</a>
-        <ul class='sub-menus'>
-          <li><a href='products.html'>Products 1</a></li>
-          <li><a href='products.html'>Products 2</a></li>
-          <li><a href='products.html'>Products 3</a></li>
-          <li><a href='products.html'>Products 4</a></li>
-        </ul>
-      </li>
-      <li><a href='index.html'>ABOUT</a></li>
+        <li><a href='index.html'>HOME</a></li>
+        <li><a class='dropdown-arrow' href='products.html'>PRODUCTS</a>
+            <ul class='sub-menus'>
+                <li><a href='product-shoes.html'>Shoes</a></li>
+                <li><a href='product-boots.html'>Boots</a></li>
+                <li><a href='product-clothing.html'>Clothing</a></li>
+            </ul>
+        </li>
+        <li><a href='about.html'>ABOUT</a></li>
     </ul>
-    <!-- Search bar added here -->
     <form class="example" action="index.html">
-      <button type="submit"><i class="fa fa-search"></i></button>
+        <button type="submit"><i class="fa fa-search"></i></button>
     </form>
-    <!-- User Icon added here -->
     <form class="example" action="index.html">
-      <button type="submit"><i class="fa fa-user" style="font-size: 20px;"></i></button>
+        <button type="submit"><i class="fa fa-user" style="font-size: 20px;"></i></button>
     </form>
-    <!-- Cart icon added here -->
     <form class="example" action="cart.html">
-      <button type="submit"><i class="fa fa-shopping-cart" style="font-size:20px"></i></button>
+        <button type="submit"><i class="fa fa-shopping-cart" style="font-size:20px"></i></button>
     </form>
-  </nav>
+</nav>
 
-  <h1>Products</h1>
-  <div id="productList"></div>
+<h1>All Products</h1>
+<div id="productList"></div>
 
-  <script>
+<script>
     window.onload = function() {
         fetch('/api/products')
         .then(response => response.json())
@@ -50,13 +46,10 @@
             const productList = document.getElementById('productList');
             productList.innerHTML = '';
             data.forEach((product) => {
-                // Create a div for each product and include an image element for the image URL
                 productList.innerHTML += `<div class="product-box" onclick="redirectToDetails('${product.id}')">
-                                              <img src="${product.imageUrl}" alt="${product.name}" style="width:100px; height:auto;">
+                                              <img src="${product.imageUrl || 'https://via.placeholder.com/150'}" alt="${product.name}">
                                               <h3>${product.name}</h3>
-                                              <p>${product.description}</p>
-                                              <p>Category: ${product.category}</p>
-                                              <p>Price: $${product.price}</p>
+                                              <p>$${product.price}</p>
                                           </div>`;
             });
         })
@@ -69,6 +62,7 @@
         window.location.href = `/details.html?id=${productId}`;
     }
 </script>
+
 </body>
 
 </html>

@@ -157,8 +157,8 @@ app.get('/api/cart', (req, res) => {
             return;
         }
         const items = data.trim().split('\n').map(line => {
-            const [productId, quantity] = line.split(',');
-            return { productId, quantity };
+            const [productId, imageUrl, name, price, quantity] = line.split(',');
+            return { productId, imageUrl, name, price, quantity };
         });
         res.json(items);
     });
@@ -167,13 +167,30 @@ app.get('/api/cart', (req, res) => {
 // Add to cart
 app.post('/api/cart', (req, res) => {
     const { productId, quantity } = req.body;
-    const cartItem = `${productId},${quantity}\n`;
-    fs.appendFile(path.join(__dirname, 'data', 'cart.txt'), cartItem, err => {
+
+    // Read the products file to get details about the product being added to the cart
+    fs.readFile(path.join(__dirname, 'data', 'products.txt'), 'utf8', (err, data) => {
         if (err) {
-            res.status(500).send('Error adding to cart');
+            res.status(500).send('Error reading products data');
             return;
         }
-        res.send('Item added to cart');
+        const products = data.trim().split('\n');
+        const productString = products.find(p => p.startsWith(productId));
+        if (!productString) {
+            res.status(404).send('Product not found');
+            return;
+        }
+        const productDetails = productString.split(',');
+        const cartItem = `${productId},${productDetails[5]},${productDetails[1]},${productDetails[4]},${quantity}\n`;
+
+        // Write the cart item to the cart file
+        fs.appendFile(path.join(__dirname, 'data', 'cart.txt'), cartItem, err => {
+            if (err) {
+                res.status(500).send('Error adding item to cart');
+                return;
+            }
+            res.send('Item added to cart');
+        });
     });
 });
 
@@ -198,6 +215,43 @@ app.delete('/api/cart/:productId', (req, res) => {
     });
 });
 
+app.put('/api/cart/update', (req, res) => {
+    const { productId, quantity } = req.body;
+    
+    // Read the cart file and update the quantity for the given product ID
+    fs.readFile(path.join(__dirname, 'data', 'cart.txt'), 'utf8', (err, data) => {
+        if (err) {
+            res.status(500).send('Error reading cart data');
+            return;
+        }
+
+        let cartUpdated = false;
+        const lines = data.trim().split('\n');
+        const updatedLines = lines.map(line => {
+            const [id, imageUrl, name, price, existingQuantity] = line.split(',');
+            if (id === productId) {
+                cartUpdated = true;
+                return `${id},${imageUrl},${name},${price},${quantity}`;
+            }
+            return line;
+        });
+
+        if (!cartUpdated) {
+            res.status(404).send('Product not found in cart');
+            return;
+        }
+
+        const updatedData = updatedLines.join('\n');
+        fs.writeFile(path.join(__dirname, 'data', 'cart.txt'), updatedData, err => {
+            if (err) {
+                res.status(500).send('Error updating cart');
+                return;
+            }
+            res.send('Cart updated');
+        });
+    });
+});
+
 // Checkout (clear the cart)
 app.post('/api/cart/checkout', (req, res) => {
     fs.writeFile(path.join(__dirname, 'data', 'cart.txt'), '', err => {
@@ -213,3 +267,4 @@ app.post('/api/cart/checkout', (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+

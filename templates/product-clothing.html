@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Clothing</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <nav id='menu'>
+        <div class="header">KICKX</div>
+        <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
+        <ul>
+            <li><a href='index.html'>HOME</a></li>
+            <li><a class='dropdown-arrow' href='products.html'>PRODUCTS</a>
+                <ul class='sub-menus'>
+                    <li><a href='product-shoes.html'>Shoes</a></li>
+                    <li><a href='product-boots.html'>Boots</a></li>
+                    <li><a href='product-clothing.html'>Clothing</a></li>
+                </ul>
+            </li>
+            <li><a href='about.html'>ABOUT</a></li>
+        </ul>
+        <form class="example" action="index.html">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <form class="example" action="index.html">
+            <button type="submit"><i class="fa fa-user" style="font-size: 20px;"></i></button>
+        </form>
+        <form class="example" action="cart.html">
+            <button type="submit"><i class="fa fa-shopping-cart" style="font-size:20px"></i></button>
+        </form>
+    </nav>
+
+    <h1>Clothing</h1>
+    <div id="productList"></div>
+
+    <script>
+        window.onload = function() {
+            fetch('/api/products')
+            .then(response => response.json())
+            .then(data => {
+                const productList = document.getElementById('productList');
+                productList.innerHTML = '';
+                data.forEach((product) => {
+                    if (product.category === "Clothing") {
+                        productList.innerHTML += `<div class="product-box" onclick="redirectToDetails('${product.id}')">
+                                                      <img src="${product.imageUrl || 'https://via.placeholder.com/150'}" alt="${product.name}">
+                                                      <h3>${product.name}</h3>
+                                                      <p>Price: $${product.price}</p>
+                                                  </div>`;
+                    }
+                });
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+
+        function redirectToDetails(productId) {
+            window.location.href = `/details.html?id=${productId}`;
+        }
+    </script>
+
+    
+</body>
+
+</html>
