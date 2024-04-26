@@ -149,6 +149,63 @@ app.get('/api/products/:id', (req, res) => {
     });
 });
 
+// Fetch product by name
+app.get('/api/products/name/:name', (req, res) => {
+    const productName = req.params.name;
+    fs.readFile(path.join(__dirname, 'data', 'products.txt'), 'utf8', (err, data) => {
+        if (err) {
+            res.status(500).send('Error reading product data');
+            return;
+        }
+        const products = data.split('\n');
+        const product = products.find(p => p.split(',')[1].trim().toLowerCase() === productName.toLowerCase());
+        if (product) {
+            const parts = product.split(',');
+            res.json({ id: parts[0], name: parts[1], description: parts[2], category: parts[3], price: parts[4], imageUrl: parts[5] });
+        } else {
+            res.status(404).send('Product not found');
+        }
+    });
+});
+
+// Update product by name
+app.put('/api/products/name/:name', (req, res) => {
+    const productName = req.params.name;
+    const { name, description, category, price, imageUrl } = req.body;
+
+    fs.readFile(path.join(__dirname, 'data', 'products.txt'), 'utf8', (err, data) => {
+        if (err) {
+            res.status(500).send('Error reading product data');
+            return;
+        }
+
+        let products = data.split('\n');
+        let updated = false;
+        const updatedData = products.map(product => {
+            const parts = product.split(',');
+            // Check if parts array has at least the expected number of elements
+            if (parts.length > 5 && parts[1].trim().toLowerCase() === productName.toLowerCase()) {
+                updated = true;
+                return `${parts[0]},${name},${description},${category},${price},${imageUrl}`;
+            }
+            return product;
+        }).join('\n');
+
+        if (!updated) {
+            res.status(404).send('Product not found');
+            return;
+        }
+
+        fs.writeFile(path.join(__dirname, 'data', 'products.txt'), updatedData, err => {
+            if (err) {
+                res.status(500).send('Error updating product');
+                return;
+            }
+            res.send('Product updated successfully');
+        });
+    });
+});
+
 // Get cart contents
 app.get('/api/cart', (req, res) => {
     fs.readFile(path.join(__dirname, 'data', 'cart.txt'), 'utf8', (err, data) => {
@@ -203,8 +260,8 @@ app.delete('/api/cart/:productId', (req, res) => {
             return;
         }
         const newCartData = data.split('\n')
-                                .filter(line => line.split(',')[0] !== productId)
-                                .join('\n');
+            .filter(line => line.split(',')[0] !== productId)
+            .join('\n');
         fs.writeFile(path.join(__dirname, 'data', 'cart.txt'), newCartData, err => {
             if (err) {
                 res.status(500).send('Error updating cart');
@@ -217,7 +274,7 @@ app.delete('/api/cart/:productId', (req, res) => {
 
 app.put('/api/cart/update', (req, res) => {
     const { productId, quantity } = req.body;
-    
+
     // Read the cart file and update the quantity for the given product ID
     fs.readFile(path.join(__dirname, 'data', 'cart.txt'), 'utf8', (err, data) => {
         if (err) {
@@ -265,6 +322,6 @@ app.post('/api/cart/checkout', (req, res) => {
 
 // Start the server
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on port ${PORT}`);
 });
 

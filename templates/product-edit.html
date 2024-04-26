@@ -9,7 +9,7 @@
 <body>
     <h1>Product Editor</h1>
     <div>
-        <input type="text" id="productId" placeholder="Enter Product ID to Edit">
+        <input type="text" id="productName" placeholder="Enter Product Name to Edit">
         <button type="button" onclick="fetchProductDetails()">Fetch Product Details</button>
     </div>
     <form id="addProductForm">
@@ -29,15 +29,15 @@
 
     <script>
         function fetchProductDetails() {
-            const productId = document.getElementById('productId').value;
-            fetch(`/api/products/${productId}`)
+            const productName = document.getElementById('productName').value;
+            fetch(`/api/products/name/${productName}`)
             .then(response => response.json())
             .then(data => {
                 document.getElementById('name').value = data.name;
                 document.getElementById('description').value = data.description;
                 document.getElementById('category').value = data.category;
                 document.getElementById('price').value = data.price;
-                document.getElementById('imageUrl').value = data.imageUrl || ''; // Assume image URL may be optional
+                document.getElementById('imageUrl').value = data.imageUrl || ''; 
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -46,7 +46,7 @@
         }
 
         function addOrUpdateProduct() {
-            const productId = document.getElementById('productId').value;
+            const productName = document.getElementById('productName').value;
             const productData = {
                 name: document.getElementById('name').value,
                 description: document.getElementById('description').value,
@@ -55,8 +55,8 @@
                 imageUrl: document.getElementById('imageUrl').value
             };
 
-            const method = productId ? 'PUT' : 'POST';
-            const url = '/api/products' + (productId ? `/${productId}` : '');
+            const method = productName ? 'PUT' : 'POST';
+            const url = '/api/products/name/' + (productName ? productName : '');
 
             fetch(url, {
                 method: method,
