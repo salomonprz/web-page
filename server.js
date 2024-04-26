@@ -56,6 +56,19 @@ app.post('/api/products', (req, res) => {
     });
 });
 
+app.post('/api/products/name/', (req, res) => {
+    const { name, description, category, price, imageUrl } = req.body;
+    const newProduct = `${Date.now()},${name},${description},${category},${price},${imageUrl}\n`;
+    fs.appendFile(path.join(__dirname, 'data', 'products.txt'), newProduct, err => {
+        if (err) {
+            console.error('Error saving product:', err);
+            res.status(500).send('Error saving product');
+            return;
+        }
+        res.send('Product added successfully');
+    });
+});
+
 // Update an existing product
 app.put('/api/products/:id', (req, res) => {
     const productId = req.params.id;
